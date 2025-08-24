@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-08-24T14:07:36.355Z</updated>
+  <updated>2025-08-24T14:16:40.156Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="http://example.com/2025/08/24/%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/"/>
     <id>http://example.com/2025/08/24/%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</id>
     <published>2025-08-24T12:12:42.000Z</published>
-    <updated>2025-08-24T14:07:36.355Z</updated>
+    <updated>2025-08-24T14:16:40.156Z</updated>
     
-    <content type="html"><![CDATA[<p>测试测试</p><p>改用github图床</p><p><img src="/01.png" alt="喵喵喵"></p>]]></content>
+    <content type="html"><![CDATA[<p>测试测试</p><p>改用github图床</p><p><img src="https://raw.githubusercontent.com/catmcbe/img/main/01.png" alt="喵喵喵"></p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;测试测试&lt;/p&gt;
 &lt;p&gt;改用github图床&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/01.png&quot; alt=&quot;喵喵喵&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/catmcbe/img/main/01.png&quot; alt=&quot;喵喵喵&quot;&gt;&lt;/p&gt;
 </summary>
       
     
