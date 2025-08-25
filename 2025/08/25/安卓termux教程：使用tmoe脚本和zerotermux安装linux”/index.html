@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>安卓termux教程：使用tmoe脚本和zerotermux安装linux | 小猫的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="使用zerotermux来安装linux，非常简单安装zerotermux，之后安装引擎，换源成清华源（在屏幕左边双击） 一路按y回车 成功之后，在屏幕左边双击，打开zero边栏，选择moe全能，按指引安装 一路配置，linux安装成功 配置VNC 推荐AVNC，下载，选择添加 ip填写127.0.0.1:vnc端口 用户名和密码填写配置的 vnc密码填写配置的 可以打开桌面 转载自 https:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓termux教程：使用tmoe脚本和zerotermux安装linux">
+<meta property="og:url" content="http://example.com/2025/08/25/%E5%AE%89%E5%8D%93termux%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BD%BF%E7%94%A8tmoe%E8%84%9A%E6%9C%AC%E5%92%8Czerotermux%E5%AE%89%E8%A3%85linux%E2%80%9D/index.html">
+<meta property="og:site_name" content="小猫的个人博客">
+<meta property="og:description" content="使用zerotermux来安装linux，非常简单安装zerotermux，之后安装引擎，换源成清华源（在屏幕左边双击） 一路按y回车 成功之后，在屏幕左边双击，打开zero边栏，选择moe全能，按指引安装 一路配置，linux安装成功 配置VNC 推荐AVNC，下载，选择添加 ip填写127.0.0.1:vnc端口 用户名和密码填写配置的 vnc密码填写配置的 可以打开桌面 转载自 https:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-25T03:40:54.000Z">
+<meta property="article:modified_time" content="2025-08-25T04:00:57.458Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小猫的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>小猫的个人博客 </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/gni.png></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">小猫 </div>
+      <div class="dot"></div>
+      <div class="subtitle">信球猫 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/catmcbe" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-安卓termux教程：使用tmoe脚本和zerotermux安装linux”" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        安卓termux教程：使用tmoe脚本和zerotermux安装linux
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-08-25T03:40:54.000Z" itemprop="datePublished">2025-08-25</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            4.6k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="使用zerotermux来安装linux，非常简单"><a href="#使用zerotermux来安装linux，非常简单" class="headerlink" title="使用zerotermux来安装linux，非常简单"></a>使用<a target="_blank" rel="noopener" href="https://github.com/hanxinhao000/ZeroTermux">zerotermux</a>来安装linux，非常简单</h1><p><strong><a target="_blank" rel="noopener" href="https://od.ixcmstudio.cn/repository/main/ZeroTermux/">安装zerotermux</a>，之后安装<a target="_blank" rel="noopener" href="https://od.ixcmstudio.cn/repository/main/ZeroTermux/ZeroTermux-Engine-0.1.20221116.apk">引擎</a>，换源成清华源（在屏幕左边双击）</strong></p>
+<p>一路按y回车</p>
+<p>成功之后，在屏幕左边双击，打开zero边栏，选择moe全能，按指引安装</p>
+<p>一路配置，linux安装成功</p>
+<p>配置VNC</p>
+<p>推荐AVNC，<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/avnc.mirror/">下载</a>，选择添加</p>
+<p>ip填写127.0.0.1:vnc端口</p>
+<p>用户名和密码填写配置的</p>
+<p>vnc密码填写配置的</p>
+<p>可以打开桌面</p>
+<p>转载自</p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1633137">https://developer.aliyun.com/article/1633137</a></p>
+<p>桌面环境推荐</p>
+<h1 id="2024-年最佳-10-个-Linux-桌面环境，你钟意那个？"><a href="#2024-年最佳-10-个-Linux-桌面环境，你钟意那个？" class="headerlink" title="2024 年最佳 10 个 Linux 桌面环境，你钟意那个？"></a><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1633137">2024 年最佳 10 个 Linux 桌面环境，你钟意那个？</a></h1><h2 id="GNOME-3-桌面环境"><a href="#GNOME-3-桌面环境" class="headerlink" title="GNOME 3 桌面环境"></a>GNOME 3 桌面环境</h2><p>GNOME 作为 Linux 世界中最广泛使用的桌面环境之一，一直以其简洁的设计和强大的功能吸引着众多用户。GNOME 项目最早在 1997 年启动，旨在为用户提供一个自由且易用的桌面环境。GNOME 3 于 2011 年发布，带来了全新的用户体验设计，彻底改变了 Linux 桌面环境的使用方式。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.gnome.org/</span><br></pre></td></tr></table></figure>
+
+<p>GNOME 3 的设计理念强调简洁和直观。默认的 GNOME 桌面以其简洁的界面和易用性而闻名，非常适合那些刚刚接触 Linux 的用户。GNOME 3 提供了一系列预装应用程序，如 Thunderbird 邮件客户端、Firefox 浏览器、Evince 文档查看器和音频视频播放器，这些工具能够满足用户的基本需求。</p>
+<p>GNOME 的另一个显著特点是其高度的可定制性。用户可以根据个人喜好调整桌面背景、图标大小、主题和小工具，从而打造一个独特的桌面体验。</p>
+<p>在 2024 年发布的 GNOME 46 带来了一系列的新功能和改进。新的桌面背景和壁纸为用户提供了更广泛的选择，改进的软件应用程序和文件管理器增强了用户体验。此外，GNOME 46 还优化了设置应用程序的导航，改进了远程登录功能，并且对 UI 进行了广泛的现代化和优化。</p>
+<p>GNOME 适合各类用户，尤其是初学者和习惯于简洁界面的高级用户。它的设计目标是提供一个无障碍的桌面环境，使用户能够专注于工作本身，而不必在系统设置上浪费太多时间。</p>
+<h2 id="KDE-Plasma"><a href="#KDE-Plasma" class="headerlink" title="KDE Plasma"></a>KDE Plasma</h2><p>KDE Plasma 是另一个备受欢迎的桌面环境，以其优雅的设计和广泛的自定义选项而著称。KDE 项目最初于 1996 年启动，目标是为 Linux 和其他 UNIX 类操作系统创建一个功能强大的桌面环境。KDE Plasma 是 KDE 社区最新的桌面环境版本，基于 Qt 框架开发。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://kde.org/plasma-desktop/</span><br></pre></td></tr></table></figure>
+
+<p>KDE Plasma 的界面设计与 Windows 十分相似，因此对于那些从 Windows 转向 Linux 的用户来说，它是一个理想的选择。KDE 提供了一套精美的桌面背景、壁纸、启动器和系统托盘，这些都是 Windows 系统的标志性元素。启动器不仅仅是一个应用程序启动工具，它还允许用户执行其他方便的任务，如搜索文档、导航到常用文件夹和书签应用程序。</p>
+<p>KDE Plasma 6.1 是最新的版本，带来了一系列新的视觉自定义功能，用户现在可以通过 LED 同步选项与应用程序实现更好的视觉协调。此外，Plasma 6.1 还改进了应用持久化和远程桌面会话的管理，使其成为一个非常强大的桌面环境。</p>
+<p>KDE Plasma 是那些需要一个高度定制化桌面环境的用户的理想选择。它提供了丰富的工具和选项，使用户可以根据自己的需求和偏好进行深度定制，无论是外观还是功能。</p>
+<h2 id="Cinnamon-桌面环境"><a href="#Cinnamon-桌面环境" class="headerlink" title="Cinnamon 桌面环境"></a>Cinnamon 桌面环境</h2><p>Cinnamon 桌面环境最初是由 Linux Mint 项目开发的，旨在提供一个与传统桌面模式相似的用户界面。Cinnamon 最早基于 GNOME 3 的技术开发，但自从 2013 年起，它已经发展成为一个独立的桌面环境。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://projects.linuxmint.com/cinnamon/</span><br></pre></td></tr></table></figure>
+
+<p>Cinnamon 的用户界面设计非常接近 Windows 系统，特别是 Windows 10 的启动器。这使得它成为 Windows 用户转向 Linux 的理想选择。Cinnamon 桌面具有现代化的外观，配有启动菜单、任务栏和桌面图标，这些都是大多数用户非常熟悉的功能。</p>
+<p>Cinnamon 6.2 是最新的版本，带来了改进的 Flatpak 支持和增强的 NVIDIA 兼容性。这些改进使得用户在使用高性能图形卡时能享受到更好的性能，同时也提高了系统的稳定性。</p>
+<p>Cinnamon 非常适合那些注重简洁和高效的用户，尤其是习惯了 Windows 系统的用户。它的设计目标是提供一个简单但功能强大的桌面体验，使用户能够迅速上手。</p>
+<h2 id="MATE-桌面环境"><a href="#MATE-桌面环境" class="headerlink" title="MATE 桌面环境"></a>MATE 桌面环境</h2><p>MATE 是 GNOME 2 的继承者，旨在保持传统桌面环境的风格，同时引入现代化的功能。MATE 的开发始于 2011 年，目标是为那些更喜欢 GNOME 2 风格的用户提供一个熟悉的桌面环境。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mate-desktop.org/</span><br></pre></td></tr></table></figure>
+
+<p>MATE 的界面设计简单、直观，非常适合那些喜欢经典桌面布局的用户。MATE 桌面环境提供了一系列常用的应用程序，如 LibreOffice、Firefox 浏览器、Eye of MATE 图像查看器和 Caja 文件管理器。这些工具确保了用户可以在安装后立即开始工作，而无需进行太多配置。</p>
+<p>MATE 1.28 是最新的版本，带来了多项改进和新功能。其中，Caja 文件管理器得到了显著的改进，添加了对 Wayland 的支持，提升了整体性能和稳定性。</p>
+<p>MATE 是老旧硬件和资源有限设备的理想选择。它不仅占用少量资源，而且提供了稳定和高效的工作环境，非常适合那些希望延长旧设备寿命的用户。</p>
+<h2 id="XFCE-桌面环境"><a href="#XFCE-桌面环境" class="headerlink" title="XFCE 桌面环境"></a>XFCE 桌面环境</h2><p>XFCE 是一个广泛使用的轻量级桌面环境，特别适合资源有限的设备。XFCE 项目始于 1996 年，目标是创建一个快速且节省资源的桌面环境，同时保持现代化和易用性。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://xfce.org/</span><br></pre></td></tr></table></figure>
+
+<p>XFCE 的设计目标是提供一个功能齐全且轻量的桌面环境。Thunar 文件管理器是 XFCE 的核心组件之一，它提供了快速且简洁的文件管理体验。XFCE 的窗口管理器 XFWM4 也是一个轻量但功能强大的工具，支持窗口阴影、透明度和键盘快捷键自定义。</p>
+<p>XFCE 4.18 是最新的版本，带来了一系列性能改进和新功能。Thunar 文件管理器获得了更多的自定义选项，如自定义快捷键和增强的搜索功能。此外，XFCE 还加强了键盘快捷键的自定义能力，使用户能够根据自己的需求调整系统。</p>
+<p>XFCE 是那些资源有限的硬件的理想选择，如老旧的台式机或笔记本电脑。它不仅运行速度快，而且非常稳定，非常适合那些需要高效、无障碍桌面体验的用户。</p>
+<h2 id="LXQt-桌面环境"><a href="#LXQt-桌面环境" class="headerlink" title="LXQt 桌面环境"></a>LXQt 桌面环境</h2><p>LXQt 是一个轻量级的桌面环境，由 LXDE 和 Razor-qt 合并而成。LXQt 的目标是提供一个快速且节省资源的桌面环境，同时保持现代化的外观和功能。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://lxqt-project.org/</span><br></pre></td></tr></table></figure>
+
+<p>LXQt 提供了一个简单但优雅的用户界面，适合那些喜欢轻量级桌面环境的用户。LXQt 包含了许多有用的应用程序，如 pcmanfm-qt 文件管理器和 lxqt-runner 应用程序启动器，这些工具非常适合日常使用。</p>
+<p>LXQt 2.0.0 是最新的版本，带来了对 Wayland 的初步支持和全新的 Fancy Menu。Fancy Menu 提供了一个现代化的启动器界面，使用户能够更快地访问应用程序和文件。</p>
+<p>LXQt 是一个适合低性能设备的轻量级桌面环境。它的资源占用极低，非常适合那些希望最大化硬件性能的用户。</p>
+<h2 id="Pantheon-桌面环境"><a href="#Pantheon-桌面环境" class="headerlink" title="Pantheon 桌面环境"></a>Pantheon 桌面环境</h2><p>Pantheon 是 Elementary OS 的默认桌面环境，以其简洁和美观的设计而著称。Pantheon 的设计灵感来自 macOS，旨在提供一个干净、组织良好的桌面体验。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://wiki.archlinux.org/title/Pantheon</span><br></pre></td></tr></table></figure>
+
+<p>Pantheon 的设计理念是简洁和一致性。它提供了一个类似 macOS 的界面，带有 dock 栏、应用程序启动器和通知中心。Pantheon 的每个元素都经过精心设计，确保用户在使用时感到愉悦和高效。</p>
+<p>Pantheon 包含一套预装的核心应用程序，如 Pantheon 文件管理器、系统监视器、音频播放器和日历应用。这些应用程序不仅功能强大，而且界面简洁，符合 Pantheon 的整体设计风格。</p>
+<p>Pantheon 非常适合那些从 macOS 转向 Linux 的用户。其简洁的界面和一致的设计使用户能够轻松上手，而无需适应新的操作方式。</p>
+<h2 id="Deepin-桌面环境"><a href="#Deepin-桌面环境" class="headerlink" title="Deepin 桌面环境"></a>Deepin 桌面环境</h2><p>Deepin 桌面环境是中国团队开发的深度 Linux 的官方桌面环境。Deepin 以其精致的 UI 和用户友好性而著称，旨在为用户提供一个美观、易用的桌面体验。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.deepin.org/en/dde/</span><br></pre></td></tr></table></figure>
+
+<p>Deepin 的视觉设计非常出色，采用了现代化的扁平化设计和光滑的动画效果。Deepin 提供了一系列主题和壁纸，用户可以根据个人喜好进行自定义。此外，Deepin 的启动器、系统托盘和通知中心也都经过精心设计，确保用户体验的统一性。</p>
+<p>Deepin 23 是最新的版本，带来了对 RISC-V 架构的改进和更好的硬件兼容性。新的 Deepin 还增强了文件管理器和系统监视器的功能，使用户能够更高效地管理系统资源。</p>
+<p>Deepin 是那些注重视觉体验的用户的理想选择。它不仅外观精美，而且提供了一系列实用的工具，使用户能够轻松地管理和定制桌面环境。</p>
+<h2 id="Enlightenment-桌面环境"><a href="#Enlightenment-桌面环境" class="headerlink" title="Enlightenment 桌面环境"></a>Enlightenment 桌面环境</h2><p>Enlightenment 最初是一个窗口管理器，但后来发展成了一个完整的桌面环境。Enlightenment 以其轻量级和模块化设计而著称，非常适合那些希望最大化系统性能的用户。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.enlightenment.org/</span><br></pre></td></tr></table></figure>
+
+<p>Enlightenment 的设计非常轻量，资源占用极低，因此非常适合那些硬件配置较低的设备。Enlightenment 的模块化设计允许用户根据需要启用或禁用特定功能，从而进一步减少资源占用。</p>
+<p>Enlightenment 0.26 是最新的版本，带来了对 logind API 的支持和更好的任务预览功能。新的 Enlightenment 还改进了窗口管理和桌面效果，使用户能够享受到更流畅的桌面体验。</p>
+<p>Enlightenment 非常适合那些喜欢简洁和速度的用户。它的轻量级特点使其成为资源有限设备的理想选择，同时其模块化设计也使其非常灵活和可定制。</p>
+<h2 id="Budgie-桌面环境"><a href="#Budgie-桌面环境" class="headerlink" title="Budgie 桌面环境"></a>Budgie 桌面环境</h2><p>Budgie 是由 Solus 项目开发的现代桌面环境，以其简洁和高效的设计而著称。Budgie 旨在提供一个干净、直观的用户界面，使用户能够专注于工作，而不是花时间在配置上。</p>
+<ul>
+<li>官网：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://buddiesofbudgie.org/</span><br></pre></td></tr></table></figure>
+
+<p>Budgie 的界面设计非常简洁，带有一个启动器、系统托盘和 Raven 侧边栏。Raven 侧边栏是 Budgie 的一大特色，用户可以通过它快速访问通知、日历和系统设置。</p>
+<p>Budgie 10.8 是最新的版本，带来了对 Wayland 的初步支持和更多的主题选项。新的 Budgie 还改进了多显示器支持，使其成为一个更加灵活的桌面环境。</p>
+<p>Budgie 非常适合那些需要一个简单但功能齐全的桌面环境的用户。它的设计目标是提供一个易于使用且直观的界面，使用户能够专注于工作而不是配置。</p>
+<p><strong>使用zerotermux的备份恢复功能，一键使用linux</strong></p>
+<p><strong>进入<a target="_blank" rel="noopener" href="https://d.icdown.club/repository/main/">IXCM工作室下载站</a>查看内容</strong></p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2025/08/24/%E5%AE%89%E5%8D%93termux%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BD%BF%E7%94%A8tmoe%E5%AE%89%E8%A3%85linux%E2%80%9C/"
+      title="安卓termux教程：使用tmoe安装linux“"
+     >
+
+    <p class="title-text">
+      
+        安卓termux教程：使用tmoe安装linux“
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 小猫<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
