@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-08-25T04:00:57.458Z</updated>
+  <updated>2025-08-31T03:09:52.378Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>最简单的openlist手机挂载夸克网盘教程</title>
+    <link href="http://example.com/2025/08/31/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84openlist%E6%89%8B%E6%9C%BA%E6%8C%82%E8%BD%BD%E5%A4%B8%E5%85%8B%E7%BD%91%E7%9B%98%E6%95%99%E7%A8%8B/"/>
+    <id>http://example.com/2025/08/31/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84openlist%E6%89%8B%E6%9C%BA%E6%8C%82%E8%BD%BD%E5%A4%B8%E5%85%8B%E7%BD%91%E7%9B%98%E6%95%99%E7%A8%8B/</id>
+    <published>2025-08-31T02:41:04.000Z</published>
+    <updated>2025-08-31T03:09:52.378Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家好，最近我在bilibili发布了一条<a href="https://www.bilibili.com/video/BV1Y2e4zvEYi">视频</a>，</p><p>这里写一下文字版本</p><p>1.安装浏览器，推荐<a href="https://www.yjllq.com/">雨见浏览器</a>，好用，可以添加扩展（主要）</p><p>2.下载openlist flutter<a href="https://github.com/Suzu008/OpenListFlutter">应用</a></p><p>3.启动服务，<img src="https://img.cdn1.vip/i/68b3b9b288750_1756608946.webp" alt="设置密码"></p><p>4.创建存储</p><p><img src="https://img.cdn1.vip/i/68b3ba1d1798a_1756609053.webp"></p><h4 id="进入夸克网盘网页版，登录账号"><a href="#进入夸克网盘网页版，登录账号" class="headerlink" title="进入夸克网盘网页版，登录账号"></a>进入夸克网盘网页版，登录账号</h4><p>5.填写参考openlist官方文档</p><p>根文件夹ID</p><p>根目录ID为 <code>0</code></p><ul><li>子文件夹ID进入文件夹后顶部地址栏获取目录ID，如果子目录越深目录ID在地址栏越靠后，想挂载哪个子目录就写那个子目录ID就可以</li></ul><p><img src="https://doc.oplist.org/img/drivers/quark/quark_fileid.png" alt="url"></p><p>6.获得cookie</p><p>6.1.手机雨见浏览器</p><p>安装<img src="https://img.cdn1.vip/i/68b3bae075d63_1756609248.webp"></p><p>刷新网页网盘，点击 Copy Cookie即可</p><p><img src="https://img.cdn1.vip/i/68b3bb61ae3cc_1756609377.webp"></p><p>6.2.电脑端</p><p>同样使用xcookie扩展，<a href="https://addons.mozilla.org/zh-CN/firefox/addon/xcookie/">firefox</a></p><p>使用firefox浏览器获取，会失败</p><p>6.3 手动提取cookie</p><p>按F12打开“调试”，选中“网络”，随意在左侧选择请求，找到携带 <code>Cookie</code> 参数的就可以</p><p><img src="https://doc.oplist.org/img/drivers/quark/quark_cookie.png" alt="quark"></p><p>7.内网穿透</p><p>转载自<a href="https://www.bilibili.com/opus/1012280459749490691%EF%BC%8C%E5%8E%9F%E4%BD%9C%E8%80%85%E6%8A%80%E6%9C%AF%E7%88%AC%E7%88%AC%E8%99%BE">https://www.bilibili.com/opus/1012280459749490691，原作者技术爬爬虾</a></p><p>如果您想在外网访问到家里的设备，那就必须实现内网穿透。爬爬虾之前介绍过使用cloudflare tunnel实现免费不限量内网穿透的方案，不过这个方案的最大缺点是网速慢、不稳定。本期视频我们来改进之前的方案，使用cloudflare优选IP，根据用户的网络环境，自动优选最优的cloudflare CDN节点进行服务，不花一分钱，给内网穿透的服务大幅提速。这套操作的前提是必须要有两个域名。以我自己举例，我有两个域名：一个是tech-shrimp.com这个主力域名，还有一个是tech-shrimp.top这是辅助域名。</p><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a><strong>内网穿透</strong></h1><p>有了域名以后，我们就把它托管到cloudflare上。我们先登录一下cloudflare，没有账号就注册一个。右上角点击添加站点，输入你的域名，然后点击继续。这里有一些付费的我们都不要，直接找下面这个免费的，点击继续。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/2ee45846315e1dcf976993ac2cdb958b316183842.png@1192w.webp" alt="img"></p><p>到这一步，什么都不用管，直接点击下一步。这一步是重点：更改名称服务器。往下找找到这两个名称服务器，</p><p><img src="https://i1.hdslb.com/bfs/article/1a7850ec8b00ee073a202c6a5e521194316183842.png@1192w.webp" alt="img"></p><p>我们需要去买域名的网站更改一下，回到买域名的网站，（以namesilo为例）有一个NameServers，把这里改一下，把原来的这3条全部删掉，然后填上刚才网站给我分配的这两个，点击保存。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/072dcd827ba09541f34be1977d8632d7316183842.png@1192w.webp" alt="img"></p><p>好，我们再回到cloudflare，点击立即检查，然后点击继续。这里也什么不用动，直接开始使用就可以了。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/634424d96c21fe6ab13da22578ee8704316183842.png@1192w.webp" alt="img"></p><p>我们按照刚才的方法，把两个域名配置好，这里.com是主力域名，然后.top是辅助域名。</p><p>有了这两个域名以后，我们开始配置内网穿透。</p><p>我们点击这里的Zero Trust。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/036b6fa5521badb6b2b617f1f0e6b03c316183842.png@1082w_696h.webp" alt="img"></p><p>到了这一步，先不用添加付款方式，</p><p><img src="https://i1.hdslb.com/bfs/article/d02ef19cedfcd194ecbbc117a54c7981316183842.png@1192w.webp" alt="img"></p><p>直接回到cloudflare的主页dash.cloudflare.com。进来以后，我们再点击Zero Trust，不添加付款渠道也可以直接使用。</p><p>在Network这里找到Tunnels，这里添加一条隧道，Add a tunnel然后选左侧的cloudflare，</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/3764944a27ffd27d6105e42b4eea41af316183842.png@1192w.webp" alt="img"></p><p>点击确定，这里起个名字，然后点击Save tunnel。</p><p>这里根据你内网设备的操作系统，下载对应的安装包。我使用的是Windows的家庭服务器，这里我使用Windows的下载64位的。首先我们先下载这个安装包，这是一个Github的链接。</p><p><img src="https://i1.hdslb.com/bfs/article/58e3b72f6fc8d5ed0d20493ece3b7227316183842.png@1192w.webp" alt="img"></p><p>下载好以后，我们就获得了这么一个安装包，然后双击安装就可以了。</p><p>在这个家庭服务器上，我还部署了一个nginx服务，我启动一个Web服务，端口使用8080端口。这里我只是用nginx做一个示例，你可以把它替换成任意一种家庭应用。然后我们把nginx启动起来，我们试着来访问一下localhost:8080，一个很简单的小页面。</p><p><img src="https://i1.hdslb.com/bfs/article/14325e67e254f1b00b801d30da8a1efb316183842.png@1192w.webp" alt="img"></p><p>等下，如果我们能从官网访问到这个页面，那么内网穿透就配置成功了。</p><p>我们回到cloudflare，在下载地址的下面给了一个一键安装命令。我把它复制一下，</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/370fa1ad954850799b8e488df9232680316183842.png@1192w.webp" alt="img"></p><p>回到我的家庭服务器，在任务栏搜索cmd，右键以管理员身份运行命令提示符，然后再右键把这个命令粘过来，点击回车。这里显示就安装成功了。</p><p>我们再回到cloudflare，拖到最下面有一个next，我们点一下。下一步我们来开始配置域名，我们先使用.top域名配置一个回退源地址。这里我的域名选择.top那个，然后子域名这里我填origin，下面填你内网的服务，这里我选择HTTP服务，那个nginx的内网URL localhost:8080，好我们保存一下。</p><p><img src="https://i1.hdslb.com/bfs/article/ae1c3303d019599643cf3292fd31ae75316183842.png@1192w.webp" alt="img"></p><p>配置完成以后，我们试着来访问一下，这里点击那个域名，点击访问，可以看到可以打开我的网页。这样我们使用tunnel内网穿透，这一步就配置完成了。如果对速度没有要求的话，到这一步也就可以了。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/2dc1e49538c68c7e429808f224ea9e3f316183842.png@1192w.webp" alt="img"></p><h1 id="IP优选，内网穿透加速"><a href="#IP优选，内网穿透加速" class="headerlink" title="IP优选，内网穿透加速"></a><strong>IP优选，内网穿透加速</strong></h1><p>如果对速度有更高的要求的话，我们接下来往下看。我们配置好第一个辅助域名以后，我们再把自己的主力域名也配上。这里还是点击add a public hostname，我的主力域名是使用tech-shrimp.com，子域名的话www，这里的配置是一样的，同样的是使用我的内网地址8080保存。这样我们两个域名都配置好了，上面是辅助域名，下面是主力域名。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/fd0ea23c2fdcbd1f219dfbcb769146bc316183842.png@1192w.webp" alt="img"></p><p>到目前为止，这两个域名都可以通过cloudflare的tunnel服务连接到我内网的nginx服务器上面。流量会先经过Cloudflare的CDN节点，然后通过隧道打通到我的内网。cloudflare在全球有上千的CDN节点，给隧道加速的关键就是如何选择最优的CDN进行服务。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/8072213462c8659ce240cc4237d7d575316183842.png@1192w.webp" alt="img"></p><p>第一步，我们先取消掉主域名的DNS解析。我们点击左上角的小云朵，进入Cloudflare主页，然后我们选择这个主力域名，选择左侧的DNS。这里有一个www的CNAME解析，这个就是tunnel自动生成的那个解析，我们先把它删掉。我们展开编辑，这里点击删除，也就是先让我们的主力域名跟tunnel先解绑。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/bb3e2644e4a931815872abe98d17b4f8316183842.png@1192w.webp" alt="img"></p><h1 id="自定义主机配置"><a href="#自定义主机配置" class="headerlink" title="自定义主机配置"></a><strong>自定义主机配置</strong></h1><p>我们进行第二步，自定义主机回退源。我们先切换到辅助域名，也就是.top这个域名。我们点击这里的SSL&#x2F;TLS，点击自定义主机名。这里需要绑定一个支付方式才能进来这个页面，我选择的是Paypal的方式。绑定好以后，选择那个免费服务。</p><p><img src="https://i1.hdslb.com/bfs/article/8959d42d67a517657bf0f0032fe4cae8316183842.png@1192w.webp" alt="img"></p><p>进入这个页面以后，我们开始添加回退源origin.tech-shrimp.top。点击添加回退源，然后我们点击添加自定义主机名，这里填写我的主力域名就是tech-shrimp.com，下面这些都默认，直接点击添加自定义主机名。</p><p>这里显示出了错误，我们展开看一下，</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/987e35d072b633b3ca649da69b84389d316183842.png@1192w.webp" alt="img"></p><p>需要把这两个填写到对应的.com域名下面验证域名的所有权。好，我们来配置一下，这里我新开了一个窗口，这次我切换到主力域名tech-shrimp.com下面，然后我点击添加记录。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/e5910d09cd2c13ccc88c611a18dda656316183842.png@1192w.webp" alt="img"></p><p>把两个txt类型的解析，填入主力域名tech-shrimp.com的DNS设置里面。</p><p>我们回到自定义主机回退源界面，等待一会儿，然后点击刷新，等到这里都是绿色，显示出有效，那就配置成功了。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/38bbd98c5220beb7add04468223ad2be316183842.png@1192w.webp" alt="img"></p><p>我们进行第三步，再引入一个新域名cdn.tech-shrimp.top，借助它实现DNS线路分流。回到.top域名的DNS记录，这里点击添加记录，类型选择CNAME，名称填写CDN，目标的话我使用社区解析好的这个地址复制过来，这里注意一定要把小黄云关闭，点击保存。</p><p><img src="https://i1.hdslb.com/bfs/new_dyn/8823f0124f914cd830641225403abfc9316183842.png@1192w.webp" alt="img"></p><p>我们进行最后一步，再添加一个CNAME。回到我们的主力域名tech-shrimp.com，然后点击添加记录，这里CNAME类型的记录，子域名的话是www，解析到这个地址cdn.tech-shrimp.top，这里是重点，我们把小黄云关闭，最后点击保存。</p><p><img src="https://i1.hdslb.com/bfs/article/0949b90d6a48d80387472bc013efb275316183842.png@1192w.webp" alt="img"></p><p>到这一步我们的所有配置就成功了。接下来我们来试一下效果，我们先来测一下直连这个回退源，也就是origin的这个网址。可以看到平均用时是1.58秒，有7个访问失败。cloudflare只为我们分配了两个出口节点的IP，如果这两个IP的网络状况不佳，就很容易造成失败。</p><p><img src="https://i1.hdslb.com/bfs/article/cd6be36bc42fae7e968385cdf4ba1ed8316183842.png@1192w.webp" alt="img"></p><p>我们再来看做了线路优选以后的结果，这次平均访问用时降到了1.04秒，只有两个失败。我们可以看到，出口节点的数量变多到了30个，根据每个省份的网络环境不同，它自动进行了线路优选，并且选择了最优的线路进行服务，大幅降低了延迟跟失败概率。</p><p><img src="https://i1.hdslb.com/bfs/article/9a78421984088f11bfd9ef5cd165e447316183842.png@1192w.webp" alt="img"></p><p>视频教程  <a href="https://www.bilibili.com/video/BV1PPy6YzE5C/">没有公网IP？cloudflare优选IP，高速内网穿透_</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;大家好，最近我在bilibili发布了一条&lt;a href=&quot;https://www.bilibili.com/video/BV1Y2e4zvEYi&quot;&gt;视频&lt;/a&gt;，&lt;/p&gt;
+&lt;p&gt;这里写一下文字版本&lt;/p&gt;
+&lt;p&gt;1.安装浏览器，推荐&lt;a href=&quot;https://www</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>安卓termux教程：使用tmoe脚本和zerotermux安装linux</title>
@@ -52,29 +74,6 @@
 &lt;li&gt;设备与工具&lt;ul&gt;
 &lt;li&gt;需一台安卓手机（无需 root）。&lt;/li&gt;
 &lt;li&gt;安装两款应用：</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>测试使用图片</title>
-    <link href="http://example.com/2025/08/24/%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/"/>
-    <id>http://example.com/2025/08/24/%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</id>
-    <published>2025-08-24T12:12:42.000Z</published>
-    <updated>2025-08-24T14:16:40.156Z</updated>
-    
-    <content type="html"><![CDATA[<p>测试测试</p><p>改用github图床</p><p><img src="https://raw.githubusercontent.com/catmcbe/img/main/01.png" alt="喵喵喵"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;测试测试&lt;/p&gt;
-&lt;p&gt;改用github图床&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/catmcbe/img/main/01.png&quot; alt=&quot;喵喵喵&quot;&gt;&lt;/p&gt;
-</summary>
       
     
     
