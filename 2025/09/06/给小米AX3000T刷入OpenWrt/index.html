@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>给小米AX3000T刷入OpenWrt | 小猫的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="给小米AX3000T刷入OpenWrt小米AX3000T 是一款功能强大的路由器，其硬件和原厂固件（miwifi1.0.47）已经非常优秀。但如果想要实现科学上网等功能，可以通过刷入OpenWrt系统来扩展功能。  一、准备工作在开始之前，请确保您已经了解刷机风险，并做好数据备份。 解锁SSH 连接设备  将小米AX3000T路由器通过网线连接至电脑，接通电源 登录路由器管理后台（浏览器输入路由器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给小米AX3000T刷入OpenWrt">
+<meta property="og:url" content="http://example.com/2025/09/06/%E7%BB%99%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E5%85%A5OpenWrt/index.html">
+<meta property="og:site_name" content="小猫的个人博客">
+<meta property="og:description" content="给小米AX3000T刷入OpenWrt小米AX3000T 是一款功能强大的路由器，其硬件和原厂固件（miwifi1.0.47）已经非常优秀。但如果想要实现科学上网等功能，可以通过刷入OpenWrt系统来扩展功能。  一、准备工作在开始之前，请确保您已经了解刷机风险，并做好数据备份。 解锁SSH 连接设备  将小米AX3000T路由器通过网线连接至电脑，接通电源 登录路由器管理后台（浏览器输入路由器">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-06T00:49:49.000Z">
+<meta property="article:modified_time" content="2025-09-06T02:32:23.729Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小猫的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/black.png" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>小猫的个人博客 </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/gni.png></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">小猫 </div>
+      <div class="dot"></div>
+      <div class="subtitle">信球猫 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/catmcbe" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-给小米AX3000T刷入OpenWrt" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        给小米AX3000T刷入OpenWrt
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-09-06T00:49:49.000Z" itemprop="datePublished">2025-09-06</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            6.3k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="给小米AX3000T刷入OpenWrt"><a href="#给小米AX3000T刷入OpenWrt" class="headerlink" title="给小米AX3000T刷入OpenWrt"></a>给小米AX3000T刷入OpenWrt</h1><p><a target="_blank" rel="noopener" href="https://www.mi.com/xiaomi-ax3000t">小米AX3000T</a> 是一款功能强大的路由器，其硬件和原厂固件（miwifi1.0.47）已经非常优秀。但如果想要实现科学上网等功能，可以通过刷入OpenWrt系统来扩展功能。</p>
+<hr>
+<h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><p>在开始之前，请确保您已经了解刷机风险，并做好数据备份。</p>
+<h3 id="解锁SSH"><a href="#解锁SSH" class="headerlink" title="解锁SSH"></a>解锁SSH</h3><ol>
+<li><p><strong>连接设备</strong></p>
+<ul>
+<li>将小米AX3000T路由器通过网线连接至电脑，接通电源</li>
+<li>登录路由器管理后台（浏览器输入路由器IP地址）</li>
+</ul>
+</li>
+<li><p><strong>获取STOK值</strong></p>
+<ul>
+<li>在后台页面找到并复制 <code>stok</code> 值（在命令中替换<code>&lt;STOK&gt;</code>）</li>
+</ul>
+</li>
+<li><p><strong>执行解锁命令</strong><br>以<strong>管理员身份</strong>打开CMD命令提示符，依次执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=&lt;STOK&gt;/api/misystem/arn_switch -d <span class="string">&quot;open=1&amp;model=1&amp;level=%0Anvram%20set%20ssh_en%3D1%0A&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=&lt;STOK&gt;/api/misystem/arn_switch -d <span class="string">&quot;open=1&amp;model=1&amp;level=%0Anvram%20commit%0A&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=&lt;STOK&gt;/api/misystem/arn_switch -d <span class="string">&quot;open=1&amp;model=1&amp;level=%0Ased%20-i%20&#x27;s%2Fchannel%3D.*%2Fchannel%3D%22debug%22%2Fg&#x27;%20%2Fetc%2Finit.d%2Fdropbear%0A&quot;</span></span><br><span class="line"></span><br><span class="line">curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=&lt;STOK&gt;/api/misystem/arn_switch -d <span class="string">&quot;open=1&amp;model=1&amp;level=%0A%2Fetc%2Finit.d%2Fdropbear%20start%0A&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>若返回 <code>code:0</code>，表示解锁成功。</p>
+</li>
+<li><p><strong>计算SSH密码</strong></p>
+<ul>
+<li>复制路由器后台的 <code>SN</code> 序列号</li>
+<li>在 <a target="_blank" rel="noopener" href="https://miwifi.dev/ssh">https://miwifi.dev/ssh</a> 输入路由器的SN可以得到SSH密码</li>
+<li>SN可以在路由器背面查看，也可以在小米路由器后台找到</li>
+</ul>
+</li>
+</ol>
+<h3 id="连接SSH"><a href="#连接SSH" class="headerlink" title="连接SSH"></a>连接SSH</h3><ol>
+<li><strong>建立SSH连接</strong><ul>
+<li>使用SSH命令连接路由器：<code>ssh root@路由器IP</code></li>
+<li>更推荐使用<a target="_blank" rel="noopener" href="https://pan.quark.cn/s/2ad5b59e6d8e#/list/share/d0e260e5de9542ba993fc07d256ad2e0">Mobaxterm</a></li>
+<li>输入计算出的SSH密码（输入时密码不可见，直接按回车）</li>
+<li>看到 <code>ARE U OK</code> 提示即表示连接成功</li>
+</ul>
+</li>
+</ol>
+<h3 id="永久开启SSH（重启不会关闭）"><a href="#永久开启SSH（重启不会关闭）" class="headerlink" title="永久开启SSH（重启不会关闭）"></a>永久开启SSH（重启不会关闭）</h3><p>执行以下命令永久开启SSH：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir /data/auto_ssh &amp;&amp; cd /data/auto_ssh</span><br><span class="line">curl -O https://fastly.jsdelivr.net/gh/lemoeo/AX6S@main/auto_ssh.sh</span><br><span class="line">chmod +x auto_ssh.sh</span><br><span class="line"></span><br><span class="line">uci set firewall.auto_ssh=include</span><br><span class="line">uci set firewall.auto_ssh.type=&#x27;script&#x27;</span><br><span class="line">uci set firewall.auto_ssh.path=&#x27;/data/auto_ssh/auto_ssh.sh&#x27;</span><br><span class="line">uci set firewall.auto_ssh.enabled=&#x27;1&#x27;</span><br><span class="line">uci commit firewall</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、安装ShellClash"><a href="#二、安装ShellClash" class="headerlink" title="二、安装ShellClash"></a>二、安装ShellClash</h2><p>在SSH终端输入以下安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ShellCrash安装源</span></span><br><span class="line"><span class="built_in">export</span> url=<span class="string">&#x27;https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master&#x27;</span> &amp;&amp; sh -c <span class="string">&quot;<span class="subst">$(curl -kfsSl $url/install.sh)</span>&quot;</span> &amp;&amp; <span class="built_in">source</span> /etc/profile &amp;&gt; /dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备用安装源</span></span><br><span class="line"><span class="built_in">export</span> url=<span class="string">&#x27;https://gh.jwsc.eu.org/master&#x27;</span> &amp;&amp; sh -c <span class="string">&quot;<span class="subst">$(curl -kfsSl $url/install.sh)</span>&quot;</span> &amp;&amp; <span class="built_in">source</span> /etc/profile &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<p>安装步骤：</p>
+<ol>
+<li>选择第一个选项（稳定版）</li>
+<li>等待安装完成，出现成功提示</li>
+</ol>
+<h3 id="配置透明代理"><a href="#配置透明代理" class="headerlink" title="配置透明代理"></a>配置透明代理</h3><ol>
+<li>进入ShellClash设置界面</li>
+<li>选择 <code>设置</code> → <code>透明代理</code> → <code>在线导入</code></li>
+<li>复制订阅链接并粘贴，按回车确认</li>
+</ol>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>输入启动命令，开启ShellClash服务。</p>
+<h2 id="三、安装管理面板"><a href="#三、安装管理面板" class="headerlink" title="三、安装管理面板"></a>三、安装管理面板</h2><h3 id="安装本地面板"><a href="#安装本地面板" class="headerlink" title="安装本地面板"></a>安装本地面板</h3><ol>
+<li>在SSH终端执行安装命令，选择第一个选项（官方面板）</li>
+<li>安装完成后，通过浏览器访问管理界面：<a target="_blank" rel="noopener" href="http://192.168.31.1:9999/ui">http://192.168.31.1:9999/ui</a></li>
+</ol>
+<h3 id="配置节点"><a href="#配置节点" class="headerlink" title="配置节点"></a>配置节点</h3><p>登录管理面板，添加并选择代理节点。</p>
+<h2 id="四、使用xmir-patcher解锁SSH"><a href="#四、使用xmir-patcher解锁SSH" class="headerlink" title="四、使用xmir-patcher解锁SSH"></a>四、使用xmir-patcher解锁SSH</h2><p>另一种解锁SSH的方法是使用<a target="_blank" rel="noopener" href="https://github.com/openwrt-xiaomi/xmir-patcher">xmir-patcher</a>：</p>
+<ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://github.com/openwrt-xiaomi/xmir-patcher/archive/refs/heads/main.zip">xmir-patcher</a></li>
+<li>运行run.bat（Linux运行run.sh，需要安装 python 3.8+ 和 openssl）</li>
+<li>刷入步骤：<ul>
+<li>选择1，输入路由器登录IP</li>
+<li>选择2，输入管理密码</li>
+</ul>
+</li>
+<li>使用此方法，SSH密码为root</li>
+</ol>
+<h2 id="五、刷入OpenWrt固件"><a href="#五、刷入OpenWrt固件" class="headerlink" title="五、刷入OpenWrt固件"></a>五、刷入OpenWrt固件</h2><h3 id="备份原厂固件"><a href="#备份原厂固件" class="headerlink" title="备份原厂固件"></a>备份原厂固件</h3><p>在刷机前，请务必备份原厂固件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmp/bak</span><br><span class="line">nanddump -f /tmp/bak/BL2.bin /dev/mtd1</span><br><span class="line">nanddump -f /tmp/bak/Nvram.bin /dev/mtd2</span><br><span class="line">nanddump -f /tmp/bak/Bdata.bin /dev/mtd3</span><br><span class="line">nanddump -f /tmp/bak/Factory.bin /dev/mtd4</span><br><span class="line">nanddump -f /tmp/bak/FIP.bin /dev/mtd5</span><br><span class="line">nanddump -f /tmp/bak/ubi.bin /dev/mtd8</span><br><span class="line">nanddump -f /tmp/bak/KF.bin /dev/mtd12</span><br></pre></td></tr></table></figure>
+
+<h3 id="刷入U-Boot"><a href="#刷入U-Boot" class="headerlink" title="刷入U-Boot"></a>刷入U-Boot</h3><ol>
+<li><p>下载U-Boot：<a target="_blank" rel="noopener" href="https://wwqg.lanzoub.com/iNUio35isw6d">mt7981_ax3000t_an8855-fip-fixed-parts-multi-layout.bin</a></p>
+</li>
+<li><p>将bin文件上传到<code>/tmp</code>目录</p>
+</li>
+<li><p>执行刷入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">mtd write mtd write mt7981_ax3000t-fip-fixed-parts-multi-layout.bin FIP FIP</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>断开电源，用牙签或卡针捅住reset键的同时接通电源</p>
+</li>
+<li><p>指示灯变化后松开reset键</p>
+</li>
+<li><p>用网线将电脑和路由器连接起来</p>
+</li>
+<li><p>电脑网卡配置静态IP：192.168.1.5，网关: 192.168.1.1</p>
+</li>
+<li><p>在浏览器中访问 <a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a> 进入U-Boot的网页刷机界面</p>
+</li>
+</ol>
+<h3 id="选择并刷入固件"><a href="#选择并刷入固件" class="headerlink" title="选择并刷入固件"></a>选择并刷入固件</h3><p>推荐固件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/zc360/Xiaomi-ax3000t-openwrt/releases/download/2025%2F08%2F12/openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-squashfs-sysupgrade.bin">openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-squashfs-sysupgrade.bin</a>，<a target="_blank" rel="noopener" href="https://proxy.pipers.cn/https://github.com/zc360/Xiaomi-ax3000t-openwrt/releases/download/2025%2F08%2F12/openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-squashfs-sysupgrade.bin">提示404下载</a></li>
+<li>作者使用，好用的，是lede</li>
+</ul>
+<p>刷入步骤：</p>
+<ol>
+<li>分区选择qwrt</li>
+<li>上传固件</li>
+<li>等待刷入完成</li>
+</ol>
+<h2 id="六、刷入后的配置"><a href="#六、刷入后的配置" class="headerlink" title="六、刷入后的配置"></a>六、刷入后的配置</h2><h3 id="切换opkg清华源"><a href="#切换opkg清华源" class="headerlink" title="切换opkg清华源"></a>切换opkg清华源</h3><p>如果您刷入的是上面的lede固件，可以直接配置清华源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">src/gz openwrt_base https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.3/packages/aarch64_cortex-a53/base</span><br><span class="line">src/gz openwrt_luci https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.3/packages/aarch64_cortex-a53/luci</span><br><span class="line">src/gz openwrt_packages https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.3/packages/aarch64_cortex-a53/packages</span><br><span class="line">src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.3/packages/aarch64_cortex-a53/routing</span><br><span class="line">src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/23.05.3/packages/aarch64_cortex-a53/telephony</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装istore"><a href="#安装istore" class="headerlink" title="安装istore"></a>安装istore</h3><p>执行以下命令安装istore：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">opkg update || exit 1</span><br><span class="line">cd /tmp</span><br><span class="line">wget https://github.com/linkease/openwrt-app-actions/raw/main/applications/luci-app-systools/root/usr/share/systools/istore-reinstall.run</span><br><span class="line">chmod 755 istore-reinstall.run</span><br><span class="line">./istore-reinstall.run</span><br></pre></td></tr></table></figure>
+
+<h3 id="wget时出现错误的解决方法"><a href="#wget时出现错误的解决方法" class="headerlink" title="wget时出现错误的解决方法"></a>wget时出现错误的解决方法</h3><p>如果在wget时出现错误，可以手动创建安装脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">ISTORE_REPO=https://istore.istoreos.com/repo/all/store</span><br><span class="line">FCURL=&quot;curl --fail --show-error&quot;</span><br><span class="line"></span><br><span class="line">curl -V &gt;/dev/null 2&gt;&amp;1 || &#123;</span><br><span class="line">  echo &quot;prereq: install curl&quot;</span><br><span class="line">  opkg info curl | grep -Fqm1 curl || opkg update</span><br><span class="line">  opkg install curl</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">IPK=`$FCURL &quot;$ISTORE_REPO/Packages.gz&quot; | zcat | grep -m1 &#x27;^Filename: luci-app-store.*\.ipk$&#x27; | sed -n -e &#x27;s/^Filename: \(.\+\)$/\1/p&#x27;`</span><br><span class="line"></span><br><span class="line">[ -n &quot;$IPK&quot; ] || exit 1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">FCURL <span class="string">&quot;<span class="variable">$ISTORE_REPO</span>/<span class="variable">$IPK</span>&quot;</span> | tar -xzO ./data.tar.gz | tar -xzO ./bin/is-opkg &gt; /tmp/is-opkg</span></span><br><span class="line"></span><br><span class="line">[ -s &quot;/tmp/is-opkg&quot; ] || exit 1</span><br><span class="line"></span><br><span class="line">chmod 755 /tmp/is-opkg</span><br><span class="line">/tmp/is-opkg update</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/tmp/is-opkg install taskd</span></span><br><span class="line">/tmp/is-opkg opkg install --force-reinstall luci-lib-taskd luci-lib-xterm</span><br><span class="line">/tmp/is-opkg opkg install --force-reinstall luci-app-store || exit $?</span><br><span class="line">[ -s &quot;/etc/init.d/tasks&quot; ] || /tmp/is-opkg opkg install --force-reinstall taskd</span><br><span class="line">[ -s &quot;/usr/lib/lua/luci/cbi.lua&quot; ] || /tmp/is-opkg opkg install luci-compat &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>操作步骤：</p>
+<ol>
+<li><code>cd /tmp</code></li>
+<li><code>vim istore-reinstall.run</code></li>
+<li>按<code>i</code>进入编辑模式</li>
+<li>粘贴上述内容</li>
+<li>按<code>Esc</code>键</li>
+<li>输入<code>:wq</code>保存退出</li>
+</ol>
+<p>或者下载安装脚本：<br><a target="_blank" rel="noopener" href="https://github.com/linkease/openwrt-app-actions/blob/main/applications/luci-app-systools/root/usr/share/systools/istore-reinstall.run">https://github.com/linkease/openwrt-app-actions/blob/main/applications/luci-app-systools/root/usr/share/systools/istore-reinstall.run</a><br>并推送到<code>/tmp</code>目录</p>
+<h2 id="七、重要补充说明"><a href="#七、重要补充说明" class="headerlink" title="七、重要补充说明"></a>七、重要补充说明</h2><blockquote>
+<p><strong>注意</strong>：在刷机前请务必确认您的设备版本信息</p>
+</blockquote>
+<h3 id="U-Boot版本兼容性"><a href="#U-Boot版本兼容性" class="headerlink" title="U-Boot版本兼容性"></a>U-Boot版本兼容性</h3><ul>
+<li>U-Boot只适用于v1版本，版本号1.0.47</li>
+<li><strong>请勿使用v2版本</strong>，否则将无法成功刷入</li>
+</ul>
+<h3 id="项目来源"><a href="#项目来源" class="headerlink" title="项目来源"></a>项目来源</h3><ul>
+<li>U-Boot来自以下项目：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/zc360/Xiaomi-ax3000t-openwrt">https://github.com/zc360/Xiaomi-ax3000t-openwrt</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hkint/xiaomi-ax3000t-immortalwrt-hanwckf-firmware-build">https://github.com/hkint/xiaomi-ax3000t-immortalwrt-hanwckf-firmware-build</a></li>
+</ul>
+</li>
+<li>LEDE镜像来自：<a target="_blank" rel="noopener" href="https://github.com/zc360/Xiaomi-ax3000t-openwrt">https://github.com/zc360/Xiaomi-ax3000t-openwrt</a></li>
+</ul>
+<h3 id="默认密码"><a href="#默认密码" class="headerlink" title="默认密码"></a>默认密码</h3><ul>
+<li>系统默认密码为：<code>password</code></li>
+</ul>
+<h3 id="版本确认方法"><a href="#版本确认方法" class="headerlink" title="版本确认方法"></a>版本确认方法</h3><p>在刷机前，建议通过以下方式确认您的路由器版本：</p>
+<ol>
+<li>登录路由器管理后台</li>
+<li>查看固件版本信息</li>
+<li>确认版本号为1.0.47后再进行刷机操作</li>
+</ol>
+<h2 id="八、降级1-0-47版本方法"><a href="#八、降级1-0-47版本方法" class="headerlink" title="八、降级1.0.47版本方法"></a>八、降级1.0.47版本方法</h2><p>如果您需要将路由器降级到1.0.47版本，可以按照以下步骤操作：</p>
+<h3 id="下载固件和工具"><a href="#下载固件和工具" class="headerlink" title="下载固件和工具"></a>下载固件和工具</h3><ol>
+<li>下载固件：<a target="_blank" rel="noopener" href="https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd03/miwifi_rd03_firmware_ef0ee_1.0.47.bin">miwifi_rd03_firmware_ef0ee_1.0.47.bin</a></li>
+<li>打开 <a target="_blank" rel="noopener" href="https://www1.miwifi.com/miwifi_download.html">小米路由器官网下载页面</a></li>
+<li>下载小米路由器修复工具（直接点击下载）</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：将两个文件（修复工具+固件）存放在无中文路径的文件夹（如桌面或英文文件夹）。</p>
+</blockquote>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li><p><strong>连接路由器与电脑</strong></p>
+<ul>
+<li>路由器通电，网线一端插入路由器LAN口（通常为第二个接口），另一端插入电脑网口</li>
+</ul>
+</li>
+<li><p><strong>关闭防火墙</strong></p>
+<ul>
+<li>Windows 11：搜索 Windows Defender → 进入网络和共享中心 → 点击 Windows防火墙 → 启用或关闭防火墙 → 关闭所有防火墙 → 确定</li>
+</ul>
+</li>
+</ol>
+<h3 id="刷机操作"><a href="#刷机操作" class="headerlink" title="刷机操作"></a>刷机操作</h3><ol>
+<li><p><strong>解压修复工具</strong></p>
+<ul>
+<li>解压小米路由器修复工具</li>
+<li>若提示”文件缺失”，可能是杀毒软件拦截：在杀毒软件中允许该文件 → 重新解压</li>
+</ul>
+</li>
+<li><p><strong>运行修复工具</strong></p>
+<ul>
+<li>右键解压后的文件 → 以管理员身份运行 → 点击是</li>
+<li>点击浏览 → 选择准备好的固件 → 确定 → 下一步</li>
+</ul>
+</li>
+<li><p><strong>选择网卡</strong></p>
+<ul>
+<li>禁用电脑其他网卡（如WiFi），仅保留连接路由器LAN口的有线网卡（如”以太网”）</li>
+<li>点击下一步</li>
+</ul>
+</li>
+<li><p><strong>进入刷机模式</strong></p>
+<ul>
+<li>严格按顺序操作：<br>① 断开路由器电源；<br>② 用卡针&#x2F;牙签按住路由器reset键（不松手）；<br>③ 接通电源；<br>④ 等待橙灯闪烁 → 松开reset键</li>
+</ul>
+</li>
+<li><p><strong>自动刷机</strong></p>
+<ul>
+<li>工具自动开始刷入固件，等待几分钟</li>
+<li>当路由器蓝灯闪烁时，表示刷机成功</li>
+</ul>
+</li>
+</ol>
+<h3 id="重启与验证"><a href="#重启与验证" class="headerlink" title="重启与验证"></a>重启与验证</h3><ol>
+<li><p><strong>重启路由器</strong></p>
+<ul>
+<li>拔掉路由器电源 → 重新插入电源</li>
+<li>关闭修复工具窗口</li>
+</ul>
+</li>
+<li><p><strong>登录路由器后台</strong></p>
+<ul>
+<li>电脑连接路由器WiFi或网线 → 浏览器访问默认IP（如192.168.31.1）→ 点击马上体验</li>
+</ul>
+</li>
+<li><p><strong>配置路由器</strong></p>
+<ul>
+<li>手动选择上网模式（如DHCP自动获取IP）</li>
+<li>设置路由器登录密码</li>
+<li>关键设置：<ul>
+<li>关闭双频合一（分离2.4G和5G WiFi）</li>
+<li>关闭自动升级固件（防止降级后自动更新）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>验证降级结果</strong></p>
+<ul>
+<li>重新登录路由器后台 → 查看固件版本号（如从1.0.64降级至1.0.47）</li>
+</ul>
+</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>路径要求：工具和固件存放路径不能含中文字符</li>
+<li>网卡选择：刷机时仅保留连接路由器的有线网卡，禁用其他网络适配器</li>
+<li>Reset操作：必须按住reset键直到橙灯闪烁，否则无法进入刷机模式</li>
+</ul>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2025/08/31/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84openlist%E6%89%8B%E6%9C%BA%E6%8C%82%E8%BD%BD%E5%A4%B8%E5%85%8B%E7%BD%91%E7%9B%98%E6%95%99%E7%A8%8B/"
+      title="最简单的openlist手机挂载夸克网盘教程"
+     >
+
+    <p class="title-text">
+      
+        最简单的openlist手机挂载夸克网盘教程
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 小猫<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

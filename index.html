@@ -153,6 +153,92 @@
    
 
 
+<article id="post-给小米AX3000T刷入OpenWrt" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2025/09/06/%E7%BB%99%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E5%85%A5OpenWrt/">给小米AX3000T刷入OpenWrt</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-09-06T00:49:49.000Z" itemprop="datePublished">2025-09-06</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            6.3k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              给小米AX3000T刷入OpenWrt小米AX3000T 是一款功能强大的路由器，其硬件和原厂固件（miwifi1.0.47）已经非常优秀。但如果想要实现科学上网等功能，可以通过刷入OpenWrt系统来扩展功能。
+
+一、准备工作在开始之前，请确保您已经了解刷机风险，并做好数据备份。
+解锁SSH
+连接设备
+
+将小米AX3000T路由器通过网线连接至电脑，接通电源
+登录路由器管理后台（浏览器输入路由器IP地址）
+
+
+获取STOK值
+
+在后台页面找到并复制 stok 值（在命令中替换&lt;STOK&gt;）
+
+
+执行解锁命令以管理员身份打开CMD命令提示符，依次执行以下命令：
+1234567curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=&lt;STOK&gt;/api/misystem/arn_switch -d &quot;open=1&amp;model=1&amp;level=%0Anvram%20set%20ssh_en%3D1%0A&quot;curl -X POST http://192.168.31.1/cgi-...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2025/09/06/%E7%BB%99%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E5%85%A5OpenWrt/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+   
+
+
 <article id="post-最简单的openlist手机挂载夸克网盘教程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
